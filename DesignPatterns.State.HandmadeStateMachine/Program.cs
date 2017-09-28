@@ -29,6 +29,22 @@ namespace DesignPatterns.State.HandmadeStateMachine
             var stateMachine = new StateMachine<Health, Activity>(Health.NonReproductive);
             stateMachine.Configure(Health.NonReproductive)
                 .Permit(Activity.ReachPuberty, Health.Reproductive);
+
+            stateMachine = new StateMachine<Health, Activity>(Health.NonReproductive);
+            stateMachine.Configure(Health.NonReproductive)
+                .Permit(Activity.ReachPuberty, Health.Reproductive);
+            stateMachine.Configure(Health.NonReproductive)
+                .Permit(Activity.ReachPuberty, Health.Reproductive)
+                .PermitIf(Activity.HaveUnprotectedSex, Health.Pregnant,
+                    () => ParentsNotWatching);
+
+
+
+        }
+
+        public static bool ParentsNotWatching
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 }
